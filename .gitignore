@@ -1,0 +1,12 @@
+# Ignore Python cache directory
+__pycache__/
+
+# Ignore log and PID files
+*.log
+*.pid
+
+# (Optional) If you want to be more specific:
+# ollama.log
+# ollama.pid
+# uvicorn.log
+# uvicorn.pid

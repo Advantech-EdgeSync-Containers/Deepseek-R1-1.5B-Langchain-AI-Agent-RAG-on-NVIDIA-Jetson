@@ -1,0 +1,55 @@
+version: '2.4'
+
+services:
+  langchain-rag:
+    image: harbor.edgesync.cloud/nagarro-container-images/deepseek-r1-1.5b-langchain-on-nvidia-jetson:v1
+    container_name: Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson
+    network_mode: host
+    env_file: .env
+    tty: true
+    stdin_open: true
+    privileged: true
+    runtime: nvidia
+    entrypoint: ["/bin/bash"]
+    volumes:
+      - ./langchain-rag-service:/workspace/langchain-service/
+      - ./wise-bench.sh:/workspace/wise-bench.sh
+      - ollama-models:/root/.ollama
+      - /etc/nv_tegra_release:/etc/nv_tegra_release
+      - /usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra
+      - /usr/src/jetson_multimedia_api:/usr/src/jetson_multimedia_api
+      - /usr/lib/aarch64-linux-gnu/gstreamer-1.0:/usr/lib/aarch64-linux-gnu/gstreamer-1.0
+      - /usr/local/cuda:/usr/local/cuda
+    devices:
+      - /dev/nvhost-ctrl
+      - /dev/nvhost-ctrl-gpu
+      - /dev/nvhost-prof-gpu
+      - /dev/nvmap
+      - /dev/nvhost-gpu
+      - /dev/nvhost-as-gpu
+      - /dev/nvhost-vic
+      - /dev/nvhost-msenc
+      - /dev/nvhost-nvdec
+      - /dev/nvhost-nvjpg
+      - /dev/nvgpu/igpu0
+    restart: always
+
+  openweb-ui-service:
+    image: ghcr.io/open-webui/open-webui:0.6.5
+    container_name: openweb-ui-service
+    network_mode: host
+    env_file: .env
+    environment:
+      OPENAI_API_BASE_URL: ${OPENAI_API_LANGCHAIN_BASE}
+      PORT: ${OPENWEBUI_PORT}
+      ENABLE_TAGS_GENERATION: ${ENABLE_TAGS_GENERATION}
+      ENABLE_TITLE_GENERATION: ${ENABLE_TITLE_GENERATION}
+    volumes:
+      - open-webui:/app/backend/data
+    restart: always
+
+volumes:
+  open-webui:
+    driver: local
+  ollama-models:
+    driver: local
