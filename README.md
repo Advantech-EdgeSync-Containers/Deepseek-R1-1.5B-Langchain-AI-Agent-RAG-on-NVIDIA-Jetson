@@ -42,9 +42,27 @@ Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson/
 ├── efficient-prompting-for-compact-models.md # Craft better prompts for small and quantized language models
 ├── customization-readme.md                   # Customization, optimization & configuration guide
 ├── .gitignore                                # Git ignore specific files
+├── data                                      # Data assets used in README and documentation
+│   ├── architecture                          # Architecture diagrams
+│   │   └── langchain-rag.png                 # Diagram showing LangChain RAG architecture
+│   ├── gifs                                   # Demo GIFs
+│   │   └── rag-demo-1.gif                    # RAG workflow demo GIF
+│   └── images                                # Reference and helper images
+│       ├── fast-api-curl.png                 # Example CURL for FastAPI endpoint
+│       ├── gguf-convert.png                  # GGUF model conversion screenshot
+│       ├── hugging-face-token.png            # HuggingFace token setup
+│       ├── kvcache-after.png                 # KV cache usage (after optimization)
+│       ├── kvcache-before.png                # KV cache usage (before optimization)
+│       ├── langchain-wise-bench.png          # LangChain Wise-Bench performance result
+│       ├── ollama-curl.png                   # CURL request to Ollama
+│       ├── ollama-status.png                 # Ollama status check image
+│       ├── quantization.png                  # Overview of quantization process
+│       ├── quantize-help.png                 # Help menu for quantize command
+│       ├── rag-start-log.png                 # Log output on RAG start
+│       └── select-model.png                  # Model selection interface screenshot
 └── langchain-rag-service/                    # Core LangChain RAG API service
     ├── pdfs/                                 # Folder to store pdf documents
-    |   └── EdgeSync.pdf                      # Sample PDF i.e. EdgeSync.pdf, contains basic info about EdgeSync    
+    │   └── EdgeSync.pdf                      # Sample PDF i.e. EdgeSync.pdf, contains basic info about EdgeSync    
     ├── app.py                                # Main LangChain-FastAPI app
     ├── llm_loader.py                         # LLM loader (Ollama, DeepSeek, etc.)
     ├── rag_utils.py                          # RAG helper functions like load pdf, split, etc.
