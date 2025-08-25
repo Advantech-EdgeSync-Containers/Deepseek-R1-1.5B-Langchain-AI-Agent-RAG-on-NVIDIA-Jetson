@@ -26,7 +26,7 @@ Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ Image delivers a m
 
 
 ## Architecture
-![langchain-rag.png](..%2Fdata%2Farchitectures%2Flangchain-rag.png)
+![langchain-rag.png](data/architecture/langchain-rag.png)
 
 ## Repository Structure
 ```
@@ -229,7 +229,7 @@ chmod +x start_services.sh
 ```
 Allow some time for the OpenWebUI and Deepseek-R1 1.5B Langchain AI Agent (RAG) on the NVIDIA Jetson™ container to settle and become healthy. Since this will also download the embedding model from Hugging Face, please allow some time (depending on internet speed) to get all services started successfully. Wait until uvicorn starts serving, and confirm via `uvicorn.log`. 
 
-![RAG Start Log](..%2Fdata%2Fimages%2Frag-start-log.png)
+![RAG Start Log](data/images/rag-start-log.png)
 
 Refer to the sample prompts table below to invoke RAG-based responses for the `EdgeSync.pdf` document.
 
@@ -239,7 +239,7 @@ Refer to the sample prompts table below to invoke RAG-based responses for the `E
 /workspace/wise-bench.sh
 ```
 
-![langchain-wise-bench.png](..%2Fdata%2Fimages%2Flangchain-wise-bench.png)
+![langchain-wise-bench.png](data/images/langchain-wise-bench.png)
 
 Wise-bench logs are saved in `wise-bench.log` file under `/workspace`
 
@@ -272,11 +272,11 @@ http://localhost_or_Jetson_IP:3000
 ### Select Model
 In case Ollama has multiple models available, choose from the list of models on the top-left of OpenWebUI after signing up/logging in successfully. As shown below. Select DeepSeek R1 1.5B:
 
-![Select Model](..%2Fdata%2Fimages%2Fselect-model.png)
+![Select Model](data/images/select-model.png)
 
 ### Quick Demonstration:
 
-![Demo](..%2Fdata%2Fgifs%2Frag-demo-1.gif)
+![Demo](data/gifs/rag-demo-1.gif)
 
 ## Prompt Guidelines
 
@@ -389,7 +389,7 @@ Response:
 ```
 Sample Screenshot:
 
-![ollama-curl.png](..%2Fdata%2Fimages%2Follama-curl.png)
+![ollama-curl.png](data/images/ollama-curl.png)
 
 For further API details, please refer to the official documentation of Ollama as mentioned on top.
 
@@ -400,7 +400,7 @@ http://localhost_or_Jetson_IP:8000/docs
 ```
 Sample Screenshot:
 
-![fast-api.png](..%2Fdata%2Fimages%2Ffast-api.png)
+![fast-api.png](data/images/fast-api.png)
 
 Inference Request:
 ```
@@ -467,7 +467,7 @@ Please note that the inference response will be in streaming mode only in the ca
 
 Sample Screenshot:
 
-![fast-api-curl.png](..%2Fdata%2Fimages%2Ffast-api-curl.png)
+![fast-api-curl.png](data/images/fast-api-curl.png)
 
 The same requests can also be made from Fast-API swagger docs.
 

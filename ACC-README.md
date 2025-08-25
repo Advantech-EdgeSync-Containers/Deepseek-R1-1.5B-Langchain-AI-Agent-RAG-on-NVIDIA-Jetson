@@ -33,7 +33,7 @@ This container enables:
 - Provides prebuilt code sample for showcasing RAG use case
 
 ## Container Demo
-![Demo](..%2Fdata%2Fgifs%2Frag-demo-1.gif)
+![Demo](data/gifs/rag-demo-1.gif)
 
 ## Use Cases
 
