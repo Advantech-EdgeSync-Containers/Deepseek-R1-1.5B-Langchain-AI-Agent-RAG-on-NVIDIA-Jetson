@@ -1,4 +1,38 @@
 version: '2.4'
+# ==========================================================================
+# Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson Docker Compose File
+# ==========================================================================
+# Version:      1.5.0-Ubuntu20.04-ARM
+# Author:       Samir Singh <samir.singh@advantech.com>
+# Created:      March 25, 2025
+# Last Updated: May 16, 2025
+#
+# Description:
+#
+#   This Docker Compose file deploys the Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson
+#   environment with NVIDIA GPU acceleration and benchmarking support. It provides
+#   a complete Retrieval-Augmented Generation (RAG) API service using LangChain,
+#   integrated with Ollama for model loading and management on Advantech edge AI
+#   devices and NVIDIA Jetson platforms.
+#
+#   Additionally, the stack includes the OpenWebUI service, offering a web-based
+#   interface to interact with the LangChain RAG backend, manage prompts, and
+#   visualize query results in real time.
+#
+# Terms and Conditions:
+#   1. This software is provided by Advantech Corporation "as is" and any
+#      express or implied warranties, including, but not limited to, the implied
+#      warranties of merchantability and fitness for a particular purpose are
+#      disclaimed.
+#   2. In no event shall Advantech Corporation be liable for any direct, indirect,
+#      incidental, special, exemplary, or consequential damages arising in any way
+#      out of the use of this software.
+#   3. Redistribution and use in source and binary forms, with or without
+#      modification, are permitted provided that the above copyright notice and
+#      this permission notice appear in all copies.
+#
+# Copyright (c) 2025 Advantech Corporation. All rights reserved.
+# ==========================================================================
 
 services:
   langchain-rag:
