@@ -42,24 +42,24 @@ Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson/
 ├── efficient-prompting-for-compact-models.md # Craft better prompts for small and quantized language models
 ├── customization-readme.md                   # Customization, optimization & configuration guide
 ├── .gitignore                                # Git ignore specific files
-├── data                                      # Data assets used in README and documentation
-│   ├── architecture                          # Architecture diagrams
-│   │   └── langchain-rag.png                 # Diagram showing LangChain RAG architecture
-│   ├── gifs                                   # Demo GIFs
-│   │   └── rag-demo-1.gif                    # RAG workflow demo GIF
-│   └── images                                # Reference and helper images
-│       ├── fast-api-curl.png                 # Example CURL for FastAPI endpoint
-│       ├── gguf-convert.png                  # GGUF model conversion screenshot
-│       ├── hugging-face-token.png            # HuggingFace token setup
-│       ├── kvcache-after.png                 # KV cache usage (after optimization)
-│       ├── kvcache-before.png                # KV cache usage (before optimization)
-│       ├── langchain-wise-bench.png          # LangChain Wise-Bench performance result
-│       ├── ollama-curl.png                   # CURL request to Ollama
-│       ├── ollama-status.png                 # Ollama status check image
-│       ├── quantization.png                  # Overview of quantization process
-│       ├── quantize-help.png                 # Help menu for quantize command
-│       ├── rag-start-log.png                 # Log output on RAG start
-│       └── select-model.png                  # Model selection interface screenshot
+├── data/                                     # Supporting media assets
+│   ├── architecture/
+│   │   └── langchain-rag.png                 # RAG architecture diagram (LangChain + vector store)
+│   ├── gifs/
+│   │   └── rag-demo-1.gif                    # Demo GIF of querying the RAG service end-to-end
+│   └── images/
+│       ├── fast-api-curl.png                 # Example curl call to the FastAPI endpoint
+│       ├── gguf-convert.png                  # Converting models to GGUF (process snapshot)
+│       ├── hugging-face-token.png            # Where to set/use the Hugging Face access token
+│       ├── kvcache-after.png                 # Inference metrics with KV cache enabled (after)
+│       ├── kvcache-before.png                # Inference metrics without KV cache (before)
+│       ├── langchain-wise-bench.png          # Wise-Bench results/summary for LangChain pipeline
+│       ├── ollama-curl.png                   # curl example for interacting with Ollama server
+│       ├── ollama-status.png                 # Ollama status/ps output screenshot
+│       ├── quantization.png                  # Overview of quantization levels/options
+│       ├── quantize-help.png                 # CLI help for quantization utility
+│       ├── rag-start-log.png                 # Service startup logs for RAG (verification snapshot)
+│       └── select-model.png                  # Model selection screen/CLI example
 └── langchain-rag-service/                    # Core LangChain RAG API service
     ├── pdfs/                                 # Folder to store pdf documents
     │   └── EdgeSync.pdf                      # Sample PDF i.e. EdgeSync.pdf, contains basic info about EdgeSync    
