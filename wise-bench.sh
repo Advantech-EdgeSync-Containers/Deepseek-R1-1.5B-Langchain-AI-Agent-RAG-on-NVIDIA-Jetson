@@ -2,10 +2,10 @@
 # ==========================================================================
 # Advantech Jetson Wise-Bench Hardware Diagnostics Script
 # ==========================================================================
-# Version:      1.0.0
+# Version:      1.2.0
 # Author:       Samir Singh <samir.singh@advantech.com>
 # Created:      March 22, 2025
-# Last Updated: May 16, 2025
+# Last Updated: August 25, 2025
 #
 # Description:
 #
