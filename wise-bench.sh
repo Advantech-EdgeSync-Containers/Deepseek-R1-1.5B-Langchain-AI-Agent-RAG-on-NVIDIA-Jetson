@@ -1,24 +1,39 @@
 #!/bin/bash
-
-
-
-# Created by Samir Singh <samir.singh@advantech.com>
-
-# Copyright (c) 2025 Advantech Corporation
-
-
-
-# This script is a wrapper that runs the encoded entrypoint script
-
-# The encoding protects the implementation details while allowing execution
-
-
-
-# Clear the terminal
+# ==========================================================================
+# Advantech Jetson Wise-Bench Hardware Diagnostics Script
+# ==========================================================================
+# Version:      1.0.0
+# Author:       Samir Singh <samir.singh@advantech.com>
+# Created:      March 22, 2025
+# Last Updated: May 16, 2025
+#
+# Description:
+#
+#   This script provides a comprehensive diagnostics and benchmarking tool
+#   for Advantech edge AI devices and NVIDIA Jetson platforms. It verifies
+#   hardware acceleration readiness across CUDA, TensorRT, OpenCV, PyTorch,
+#   TensorFlow, ONNX Runtime, GStreamer, and FFmpeg. 
+#
+#   The script also validates NVIDIA device nodes, prepares virtual encoders/
+#   decoders, and performs GPU acceleration checks with animated progress
+#   indicators, ASCII banners, and detailed tabular reports for easy analysis.
+#
+# Terms and Conditions:
+#   1. This software is provided by Advantech Corporation "as is" and any
+#      express or implied warranties, including, but not limited to, the implied
+#      warranties of merchantability and fitness for a particular purpose are
+#      disclaimed.
+#   2. In no event shall Advantech Corporation be liable for any direct, indirect,
+#      incidental, special, exemplary, or consequential damages arising in any way
+#      out of the use of this software.
+#   3. Redistribution and use in source and binary forms, with or without
+#      modification, are permitted provided that the above copyright notice and
+#      this permission notice appear in all copies.
+#
+# Copyright (c) 2025 Advantech Corporation. All rights reserved.
+# ==========================================================================
 
 clear
-
-
 LOG_FILE="/workspace/wise-bench.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -33,444 +48,202 @@ mkdir -p "$(dirname "$LOG_FILE")"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Simplified script with minimal formatting to avoid ANSI code issues
-
-
-
 # Display banner
 
 GREEN='\033[0;32m'
-
 RED='\033[0;31m'
-
 YELLOW='\033[0;33m'
-
 BLUE='\033[0;34m'
-
 CYAN='\033[0;36m'
-
 BOLD='\033[1m'
-
 PURPLE='\033[0;35m'
-
 NC='\033[0m' # No Color
-
-
-
 # Display fancy banner
 
 echo -e "${BLUE}${BOLD}+------------------------------------------------------+${NC}"
-
 echo -e "${BLUE}${BOLD}|    ${PURPLE}Advantech_COE Jetson Hardware Diagnostics Tool${BLUE}    |${NC}"
-
 echo -e "${BLUE}${BOLD}+------------------------------------------------------+${NC}"
-
 echo
-
 # Show Advantech COE ASCII logo - with COE integrated
-
 echo -e "${BLUE}"
-
 echo "       █████╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗████████╗███████╗ ██████╗██╗  ██╗     ██████╗ ██████╗ ███████╗"
-
 echo "      ██╔══██╗██╔══██╗██║   ██║██╔══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝██║  ██║    ██╔════╝██╔═══██╗██╔════╝"
-
 echo "      ███████║██║  ██║██║   ██║███████║██╔██╗ ██║   ██║   █████╗  ██║     ███████║    ██║     ██║   ██║█████╗  "
-
 echo "      ██╔══██║██║  ██║╚██╗ ██╔╝██╔══██║██║╚██╗██║   ██║   ██╔══╝  ██║     ██╔══██║    ██║     ██║   ██║██╔══╝  "
-
 echo "      ██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║   ██║   ███████╗╚██████╗██║  ██║    ╚██████╗╚██████╔╝███████╗"
-
 echo "      ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚══════╝"
 
 echo -e "${WHITE}                                  Center of Excellence${NC}"
-
 echo
 echo -e "${YELLOW}${BOLD}▶ Starting hardware acceleration tests...${NC}"
-
 echo -e "${CYAN}  This may take a moment...${NC}"
-
 echo
-
 sleep 7
-
-
-
 # Helper functions
-
 print_header() {
-
     echo
-
     echo "+--- $1 ----$(printf '%*s' $((47 - ${#1})) | tr ' ' '-')+"
-
     echo "|$(printf '%*s' 50 | tr ' ' ' ')|"
-
     echo "+--------------------------------------------------+"
-
 }
-
-
-
 print_success() {
-
     echo "✓ $1"
-
 }
-
-
-
 print_warning() {
-
     echo "⚠ $1"
-
 }
-
-
-
 print_info() {
-
     echo "ℹ $1"
-
 }
-
-
-
 print_table_header() {
-
     echo "+--------------------------------------------------+"
-
     echo "| $1$(printf '%*s' $((47 - ${#1})) | tr ' ' ' ')|"
-
     echo "+--------------------------------------------------+"
-
 }
-
-
-
 print_table_row() {
-
     printf "| %-25s | %s |\n" "$1" "$2"
-
 }
-
-
-
 print_table_footer() {
-
     echo "+--------------------------------------------------+"
-
 }
-
-
-
 echo "▶ Setting up hardware acceleration environment..."
 
-
-
 # Create a progress spinner function
-
 spinner() {
-
     local pid=$1
-
     local delay=0.1
-
     local spinstr='|/-\'
-
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-
         local temp=${spinstr#?}
-
         printf " [%c]  " "$spinstr"
-
         local spinstr=$temp${spinstr%"$temp"}
-
         sleep $delay
-
         printf "\b\b\b\b\b\b"
-
     done
-
     printf "    \b\b\b\b"
-
 }
-
-
-
 # Function to set up device with spinner
-
 setup_device() {
-
     echo -ne "  $1 "
-
     $2 > /dev/null 2>&1 &
-
     spinner $!
-
     if [ $? -eq 0 ]; then
-
         echo -e "✓"
-
     else
-
         echo -e "⚠"
-
     fi
-
 }
-
-
 
 # Process each setup step with a nice spinner
-
 (
-
 if [ ! -e "/dev/nvhost-nvdec-bl" ]; then
-
     setup_device "Setting up virtual decoder..." "
-
         if [ -e '/dev/nvhost-nvdec' ]; then
-
             if [ \$(id -u) -eq 0 ]; then
-
                 mknod -m 666 /dev/nvhost-nvdec-bl c \$(stat -c \"%%t %%T\" /dev/nvhost-nvdec) || ln -sf /dev/nvhost-nvdec /dev/nvhost-nvdec-bl
-
             else
-
                 ln -sf /dev/nvhost-nvdec /dev/nvhost-nvdec-bl
-
             fi
-
         fi
-
     "
-
 fi
-
-
-
 if [ ! -e "/dev/nvhost-nvenc" ]; then
-
     setup_device "Setting up virtual encoder..." "
-
         if [ -e '/dev/nvhost-msenc' ]; then
-
             if [ \$(id -u) -eq 0 ]; then
-
                 mknod -m 666 /dev/nvhost-nvenc c \$(stat -c \"%%t %%T\" /dev/nvhost-msenc) || ln -sf /dev/nvhost-msenc /dev/nvhost-nvenc
-
             else
-
                 ln -sf /dev/nvhost-msenc /dev/nvhost-nvenc
-
             fi
-
         fi
-
     "
-
 fi
-
-
-
 setup_device "Creating required directories..." "
-
     mkdir -p /tmp/argus_socket
-
     mkdir -p /opt/nvidia/l4t-packages
 
-    
-
     if [ ! -d '/opt/nvidia/l4t-jetson-multimedia-api' ] && [ -d '/usr/src/jetson_multimedia_api' ]; then
-
         mkdir -p /opt/nvidia
-
         ln -sf /usr/src/jetson_multimedia_api /opt/nvidia/l4t-jetson-multimedia-api
-
     fi
-
 "
-
 )
-
-
-
 # Display NVIDIA devices in a more organized way
-
 echo -e "\n▶ NVIDIA Devices Detected:"
-
 echo "+------------------------------------------------------------------+"
-
 printf "| %-30s| %-15s| %-12s|\n" "Device" "Type" "Major:Minor"
-
 echo "+------------------------------+-----------------+-------------+"
-
-
-
 # Parse the ls output safely
-
 ls -la /dev/nvhost* 2>/dev/null | grep -v "^total" | awk '{print $1, $3, $4, $5, $6, $10}' | 
-
 while read -r perms owner group major minor device; do
-
     # Use safe basename that won't fail
-
     device_name=$(echo "$device" | awk -F/ '{print $NF}' 2>/dev/null || echo "Unknown")
-
-    
-
+  
     # Skip invalid lines
-
     if [[ -z "$device_name" || "$device_name" == *"basename"* || "$device_name" == *"invalid option"* ]]; then
-
         continue
-
     fi
-
-    
-
+  
     # Get device type safely
-
     device_type=$(echo "$device_name" | cut -d'-' -f2 2>/dev/null || echo "Unknown")
-
     printf "| %-30s| %-15s| %-12s|\n" "$device_name" "$device_type" "$major:$minor"
-
 done
-
-
-
 DEVICE_COUNT=$(ls -la /dev/nvhost* 2>/dev/null | grep -v "^total" | wc -l)
-
 if [ "$DEVICE_COUNT" -eq 0 ]; then
-
     printf "| %-62s|\n" "No NVIDIA devices found"
-
 fi
-
-
-
 echo "+------------------------------------------------------------------+"
-
-
-
 # Show a nice completion message
-
 print_success "Hardware acceleration environment successfully prepared"
-
-
-
 # System Information in a fancy tabular format
-
 print_header "SYSTEM INFORMATION"
-
 print_table_header "SYSTEM DETAILS"
-
-
-
 # Get system information
-
 KERNEL=$(uname -r)
-
 ARCHITECTURE=$(uname -m)
-
 HOSTNAME=$(hostname)
-
 OS=$(grep PRETTY_NAME /etc/os-release 2>/dev/null | cut -d'"' -f2 || echo "Unknown")
-
 MEMORY_TOTAL=$(free -h | awk '/^Mem:/ {print $2}')
-
 MEMORY_USED=$(free -h | awk '/^Mem:/ {print $3}')
-
 CPU_MODEL=$(lscpu | grep "Model name" | cut -d':' -f2- | sed 's/^[ \t]*//' | head -1 || echo "Unknown")
-
 CPU_CORES=$(nproc --all)
-
 UPTIME=$(uptime -p | sed 's/^up //')
-
-
-
 # Print detailed system information in a fancy table
-
 print_table_row "Hostname" "$HOSTNAME"
-
 print_table_row "OS" "$OS"
-
 print_table_row "Kernel" "$KERNEL"
-
 print_table_row "Architecture" "$ARCHITECTURE"
-
 print_table_row "CPU" "$CPU_MODEL ($CPU_CORES cores)"
-
 print_table_row "Memory" "$MEMORY_USED used of $MEMORY_TOTAL"
-
 print_table_row "Uptime" "$UPTIME"
-
 print_table_row "Date" "$(date "+%a %b %d %H:%M:%S %Y")"
-
 print_table_footer
-
-
-
 # CUDA Information with fancy graphics
-
 print_header "CUDA INFORMATION"
-
-
-
 # Show fancy CUDA logo ASCII art
-
 echo -e "${YELLOW}"
-
 echo "       ██████╗██╗   ██╗██████╗  █████╗ "
-
 echo "      ██╔════╝██║   ██║██╔══██╗██╔══██╗"
-
 echo "      ██║     ██║   ██║██║  ██║███████║"
-
 echo "      ██║     ██║   ██║██║  ██║██╔══██║"
-
 echo "      ╚██████╗╚██████╔╝██████╔╝██║  ██║"
-
 echo "       ╚═════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝"
-
 echo -e "${NC}"
-
-
-
 # Animated CUDA detection
-
 echo -ne "▶ Detecting CUDA installation... "
-
 for i in {1..10}; do
-
     echo -ne "▮"
-
     sleep 0.05
-
 done
-
 echo
-
-
-
 print_table_header "CUDA DETAILS"
-
-
-
 if [ -f "/usr/local/cuda/bin/nvcc" ]; then
-
     CUDA_VERSION=$(/usr/local/cuda/bin/nvcc --version | grep "release" | awk '{print $5}' | cut -d',' -f1)
-
     CUDA_PATH="/usr/local/cuda"
-
-    
-
+  
     # Get more detailed CUDA info
-
     CUDA_DRIVER_VERSION=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null || echo "Unknown")
-
-    
-
+  
     print_table_row "CUDA Version" "$CUDA_VERSION"
 
     print_table_row "CUDA Path" "$CUDA_PATH"
