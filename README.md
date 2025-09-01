@@ -212,7 +212,7 @@ Before starting, please ensure that the readme sections `Best Practices for Docu
 ### Clone Repository
 ```
 # Clone the repository
-git clone https://github.com/Advantech-EdgeSync-Containers/Nagarro-Container-Project.git
+git clone https://github.com/Advantech-EdgeSync-Containers/Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson
 cd Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson
 ```
 
