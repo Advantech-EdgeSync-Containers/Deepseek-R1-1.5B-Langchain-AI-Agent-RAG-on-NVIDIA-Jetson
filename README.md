@@ -1,7 +1,7 @@
 # Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ 
 
 **Version:** 2.0
-**Release Date:** August 2025
+**Release Date:** November 2025
 **Copyright:** © 2025 Advantech Corporation. All rights reserved.
 
 ## Overview
@@ -146,7 +146,7 @@ This image uses DeepSeek R1-1.5B for inferencing; here are the details about the
 | GPU | NVIDIA® Ampere architecture with 1024 CUDA® cores |
 | DLA Cores | 1 (Deep Learning Accelerator) |
 | Memory | 4/8/16 GB shared GPU/CPU memory |
-| JetPack Version | 5.x |
+| JetPack Version | 6.0 |
 
 ## Software Components
 
@@ -154,14 +154,12 @@ The following software components are available in the base image:
 
 | Component | Version | Description |
 |-----------|---------|-------------|
-| CUDA® | 11.4.315 | GPU computing platform |
-| cuDNN | 8.6.0 | Deep Neural Network library |
-| TensorRT™ | 8.5.2.2 | Inference optimizer and runtime |
-| PyTorch | 2.0.0+nv23.02 | Deep learning framework |
-| TensorFlow | 2.12.0 | Machine learning framework |
-| ONNX Runtime | 1.16.3 | Cross-platform inference engine |
-| OpenCV | 4.5.0 | Computer vision library with CUDA® |
-| GStreamer | 1.16.2 | Multimedia framework |
+| CUDA® | 12.6.68 | GPU computing platform |
+| cuDNN | 9.3.0.75 | Deep Neural Network library |
+| TensorRT™ | 10.3.0.30 | Inference optimizer and runtime |
+| VPI | 3.2.4 | Vision Programming Interface |
+| Vulkan | 1.3.204 | Graphics and compute API |
+| OpenCV | 4.8.0 | Computer vision library with CUDA® |
 
 
 The following software components/packages are provided further inside the container image:
