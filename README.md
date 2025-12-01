@@ -7,6 +7,15 @@
 
 ## Overview
 Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ Image delivers a modular, high-performance AI chat solution tailored for Jetson™ edge devices that extracts relevant information from a PDF document. It combines Ollama with the DeepSeek R1 1.5B model for LLM inference, a FastAPI-based Langchain middleware for orchestration and tool integration, and OpenWebUI for an intuitive user interface. The container supports Retrieval-Augmented Generation (RAG), tool-augmented reasoning, conversational memory, and custom LLM workflows, making it ideal for building intelligent, context-aware agents. It is fully optimized for hardware acceleration on Jetson™ platforms. This container particularly shows how RAG use case could be built using DeepSeek & Langchain.
+## Host System Requirements
+
+| Component | Version/Requirement |
+|-----------|---------|
+| **JetPack** | 5.x |
+| **CUDA** | 11.4.315 |
+| **cuDNN** | 8.6.0.166 |
+| **TensorRT** | 8.5.2.2 |
+| **OpenCV** | 4.5.4 |
 
 ## Key Features
 
@@ -205,6 +214,14 @@ The following software components/packages are provided further inside the conta
 - You can also customize score thresholding in retriever config to filter irrelevant content via the environment variable `SCORE_THRESHOLD` as per the need.
 - Keep persistent vector DB (e.g., FAISS saved index) to avoid re-indexing on container restart
 - Use appropriate (size/precision) embedding models as per the suitability of the use case.
+
+
+## Before You Start
+- Ensure the following components are installed on your host system:
+  - **Docker** (v28.1.1 or compatible)
+  - **Docker Compose** (v2.39.1 or compatible)
+  - **NVIDIA Container Toolkit** (v1.11.0 or compatible)
+  - **NVIDIA Runtime** configured in Docker
 
 ## Quick Start
 
