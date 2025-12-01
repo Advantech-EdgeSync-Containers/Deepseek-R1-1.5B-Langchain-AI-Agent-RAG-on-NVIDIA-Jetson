@@ -12,10 +12,13 @@ Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ Image delivers a m
 | Component | Version/Requirement |
 |-----------|---------|
 | **JetPack** | 5.x |
-| **CUDA** | 11.4.315 |
-| **cuDNN** | 8.6.0.166 |
-| **TensorRT** | 8.5.2.2 |
-| **OpenCV** | 4.5.4 |
+| **CUDA*** | 11.4.315 |
+| **cuDNN*** | 8.6.0.166 |
+| **TensorRT*** | 8.5.2.2 |
+| **OpenCV*** | 4.5.4 |
+
+* CUDA , CuDNN , TensorRT , OpenCV versions Depends on JetPack version 5.x
+* Please refer to the [NVIDIA JetPack Documentation](https://developer.nvidia.com/embedded/jetpack) for more details on compatible versions.
 
 ## Key Features
 
