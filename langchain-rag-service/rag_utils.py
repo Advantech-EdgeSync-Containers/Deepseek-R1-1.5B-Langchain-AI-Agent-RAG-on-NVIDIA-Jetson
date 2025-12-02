@@ -3,7 +3,7 @@ from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import FakeEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 
@@ -34,7 +34,7 @@ def split_docs(docs):
 
 # Create vector store using FAISS
 def create_vectorstore(chunks):
-    embeddings = HuggingFaceEmbeddings(model_name=os.getenv("EMBEDDING_MODEL","sentence-transformers/sentence-t5-base"))
+    embeddings = FakeEmbeddings()
     return FAISS.from_documents(chunks, embedding=embeddings)
 
 # Create QA chain

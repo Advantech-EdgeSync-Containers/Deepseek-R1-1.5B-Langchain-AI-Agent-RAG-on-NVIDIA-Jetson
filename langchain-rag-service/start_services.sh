@@ -35,6 +35,10 @@ else
     exit 1
 fi
 
+# Install required Python packages
+echo "Installing required Python packages..."
+pip install -r requirements.txt
+
 # Starting FastAPI Server
 echo "Starting FastAPI (Langchain) server on port $FASTAPI_LANGCHAIN_PORT..."
 nohup uvicorn app:app --host 0.0.0.0 --port "$FASTAPI_LANGCHAIN_PORT" > uvicorn.log 2>&1 &
