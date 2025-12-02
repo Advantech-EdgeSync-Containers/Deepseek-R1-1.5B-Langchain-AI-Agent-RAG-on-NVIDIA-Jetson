@@ -37,6 +37,7 @@ fi
 
 # Install required Python packages
 echo "Installing required Python packages..."
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 
 # Starting FastAPI Server
