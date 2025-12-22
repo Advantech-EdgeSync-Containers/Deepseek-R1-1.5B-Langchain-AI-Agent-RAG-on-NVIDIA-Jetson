@@ -3,6 +3,7 @@
 **Version:** 2.0
 **Release Date:** November 2025
 **Copyright:** © 2025 Advantech Corporation. All rights reserved.
+>  Check our [Troubleshooting Wiki](https://github.com/Advantech-EdgeSync-Containers/GPU-Passthrough-on-NVIDIA-Jetson/wiki/Advantech-Containers'-Troubleshooting-Guide) for common issues and solutions.
 
 ## Overview
 Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ Image delivers a modular, high-performance AI chat solution tailored for Jetson™ edge devices that extracts relevant information from a PDF document. It combines Ollama with the DeepSeek R1 1.5B model for LLM inference, a FastAPI-based Langchain middleware for orchestration and tool integration, and OpenWebUI for an intuitive user interface. The container supports Retrieval-Augmented Generation (RAG), tool-augmented reasoning, conversational memory, and custom LLM workflows, making it ideal for building intelligent, context-aware agents. It is fully optimized for hardware acceleration on Jetson™ platforms. This container particularly shows how RAG use case could be built using DeepSeek & Langchain.
@@ -138,6 +139,19 @@ This image uses DeepSeek R1-1.5B for inferencing; here are the details about the
 | Model size  | ~1.1 GB |
 | Default context size (unless changed using parameters) | 2048 |
 
+## Host System Requirements
+
+| Component | Version/Requirement |
+|-----------|---------|
+| **JetPack** | 6.x |
+| **CUDA** | 12.6.68 |
+| **cuDNN** | 9.3.0.75 |
+| **TensorRT** | 10.3.0.30 |
+| **OpenCV** | 4.8.0 |
+
+* CUDA , CuDNN , TensorRT , OpenCV versions Depends on JetPack version 6.x
+* Please refer to the [NVIDIA JetPack Documentation](https://developer.nvidia.com/embedded/jetpack) for more details on compatible versions.
+
 ## Hardware Specifications
 
 | Component | Specification |
@@ -157,9 +171,13 @@ The following software components are available in the base image:
 | CUDA® | 12.6.68 | GPU computing platform |
 | cuDNN | 9.3.0.75 | Deep Neural Network library |
 | TensorRT™ | 10.3.0.30 | Inference optimizer and runtime |
+| PyTorch | 2.0.0+nv23.02 | Deep learning framework |
+| TensorFlow | 2.12.0 | Machine learning framework |
+| ONNX Runtime | 1.16.3 | Cross-platform inference engine |
 | VPI | 3.2.4 | Vision Programming Interface |
 | Vulkan | 1.3.204 | Graphics and compute API |
 | OpenCV | 4.8.0 | Computer vision library with CUDA® |
+| GStreamer | 1.16.2 | Multimedia framework |
 
 
 The following software components/packages are provided further inside the container image:
@@ -202,6 +220,14 @@ The following software components/packages are provided further inside the conta
 - You can also customize score thresholding in retriever config to filter irrelevant content via the environment variable `SCORE_THRESHOLD` as per the need.
 - Keep persistent vector DB (e.g., FAISS saved index) to avoid re-indexing on container restart
 - Use appropriate (size/precision) embedding models as per the suitability of the use case.
+
+
+## Before You Start
+- Ensure the following components are installed on your host system:
+  - **Docker** (v28.1.1 or compatible)
+  - **Docker Compose** (v2.39.1 or compatible)
+  - **NVIDIA Container Toolkit** (v1.11.0 or compatible)
+  - **NVIDIA Runtime** configured in Docker
 
 ## Quick Start
 
@@ -252,8 +278,12 @@ Refer to the sample prompts table below to invoke RAG-based responses for the `E
 ### AI Accelerator and Software Stack Verification (Optional)
 ```
 # Verify AI Accelerator and Software Stack Inside Docker Container
-chmod +x /workspace/wise-bench.sh
-./workspace/wise-bench.sh
+# Under /workspace run this command
+# Provide executable rights
+
+chmod +x wise-bench.sh
+# To run wise-bench
+./wise-bench.sh
 ```
 
 ![langchain-wise-bench.png](data/images/langchain-wise-bench.png)
