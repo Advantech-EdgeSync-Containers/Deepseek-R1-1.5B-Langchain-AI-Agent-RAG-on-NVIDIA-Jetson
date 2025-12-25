@@ -3,7 +3,7 @@ from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import FakeEmbeddings
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 
@@ -34,8 +34,10 @@ def split_docs(docs):
 
 # Create vector store using FAISS
 def create_vectorstore(chunks):
-    embeddings = FakeEmbeddings()
-    return FAISS.from_documents(chunks, embedding=embeddings)
+    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+    
+    vectorstore = FAISS.from_documents(chunks, embedding=embeddings)
+    return vectorstore
 
 # Create QA chain
 def create_qa_chain(llm, retriever):
