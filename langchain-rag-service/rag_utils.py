@@ -34,7 +34,7 @@ def split_docs(docs):
 
 # Create vector store using FAISS
 def create_vectorstore(chunks):
-    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+    embeddings = FastEmbedEmbeddings(model_name=os.getenv("EMBEDDING_MODEL", "BAAI/bge-base-en-v1.5"))
     
     vectorstore = FAISS.from_documents(chunks, embedding=embeddings)
     return vectorstore
