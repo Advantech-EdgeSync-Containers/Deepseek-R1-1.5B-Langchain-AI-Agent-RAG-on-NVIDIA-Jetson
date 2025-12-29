@@ -75,7 +75,7 @@ Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson/
 │       └── select-model.png                  # Model selection screen/CLI example
 └── langchain-rag-service/                    # Core LangChain RAG API service
     ├── pdfs/                                 # Folder to store pdf documents
-    │   └── EdgeSync.pdf                      # Sample PDF i.e. EdgeSync.pdf, contains basic info about EdgeSync    
+    │   └── WEDA.pdf                      # Sample PDF i.e. WEDA.pdf, contains basic info about WEDA    
     ├── app.py                                # Main LangChain-FastAPI app
     ├── llm_loader.py                         # LLM loader (Ollama, DeepSeek, etc.)
     ├── rag_utils.py                          # RAG helper functions like load pdf, split, etc.
@@ -270,7 +270,7 @@ Allow some time for the OpenWebUI and Deepseek-R1 1.5B Langchain AI Agent (RAG) 
 
 ![RAG Start Log](data/images/rag-start-log.png)
 
-Refer to the sample prompts table below to invoke RAG-based responses for the `EdgeSync.pdf` document.
+Refer to the sample prompts table below to invoke RAG-based responses for the `WEDA.pdf` document.
 
 ### AI Accelerator and Software Stack Verification (Optional)
 ```
@@ -288,17 +288,17 @@ chmod +x wise-bench.sh
 Wise-bench logs are saved in `wise-bench.log` file under `/workspace`
 
 
-### Sample Prompts for PDF-based RAG Queries on EdgeSync Technical Document
+### Sample Prompts for PDF-based RAG Queries on WEDA Technical Document
 
-These example prompts demonstrate how users can query technical documents related to EdgeSync (i.e., `EdgeSync.pdf`). The RAG container will retrieve relevant context and generate a meaningful response from the source document. Users can extend this RAG example container for their own documents and modify their prompts accordingly.
+These example prompts demonstrate how users can query technical documents related to WEDA (i.e., `WEDA.pdf`). The RAG container will retrieve relevant context and generate a meaningful response from the source document. Users can extend this RAG example container for their own documents and modify their prompts accordingly.
 
 | S.No | Prompt |
 |------|--------|
-| 1 | Please summarize in detail about the EdgeSync API. |
-| 2 | What are the pillars of EdgeSync? |
-| 3 | Please describe EdgeSync containers. |
-| 4 | What can developers do with EdgeSync APIs? |
-| 5 | What developers can do with EdgeSync containers? |
+| 1 | Please summarize in detail about the WEDA API. |
+| 2 | What are the pillars of WEDA? |
+| 3 | Please describe WEDA containers. |
+| 4 | What can developers do with WEDA APIs? |
+| 5 | What developers can do with WEDA containers? |
 
 
 ### Check Installation Status
