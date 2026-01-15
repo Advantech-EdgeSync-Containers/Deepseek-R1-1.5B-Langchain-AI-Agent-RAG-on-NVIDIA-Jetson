@@ -600,14 +600,19 @@ if curl --silent --fail "$OLLAMA_API_BASE/api/tags" > /dev/null; then
     fi
 
     # ---- Check Ollama Execution Mode ----
-    MODEL_DATA=$(curl -s http://localhost:11434/api/ps | grep -o '{"models":\[.*\]}' | sed 's/{"models":\[//;s/\].*//')
+    MODEL_INFO=$(curl -s http://localhost:11434/api/ps)
+    MODEL_COUNT=$(echo "$MODEL_INFO" | grep -o '"name"' | wc -l)
 
-    if [ -n "$MODEL_DATA" ]; then
-        # Extract total size and vram size using simple grep/sed (if jq is not available)
-        TOTAL_SIZE=$(echo "$MODEL_DATA" | grep -o '"size":[0-9]*' | cut -d: -f2)
-        VRAM_SIZE=$(echo "$MODEL_DATA" | grep -o '"size_vram":[0-9]*' | cut -d: -f2)
+    if [ "$MODEL_COUNT" -gt 0 ]; then
+        # Extract values using grep and tr to ensure only digits are captured
+        TOTAL_SIZE=$(echo "$MODEL_INFO" | grep -o '"size":[0-9]*' | head -n 1 | cut -d: -f2 | tr -d '"')
+        VRAM_SIZE=$(echo "$MODEL_INFO" | grep -o '"size_vram":[0-9]*' | head -n 1 | cut -d: -f2 | tr -d '"')
 
-        if [ "$VRAM_SIZE" -eq "$TOTAL_SIZE" ] && [ "$TOTAL_SIZE" -gt 0 ]; then
+        # Fallback to 0 if variables are empty to prevent "integer expression" error
+        : "${TOTAL_SIZE:=0}"
+        : "${VRAM_SIZE:=0}"
+
+        if [ "$TOTAL_SIZE" -gt 0 ] && [ "$VRAM_SIZE" -eq "$TOTAL_SIZE" ]; then
             EXEC_MODE="GPU (Full)"
         elif [ "$VRAM_SIZE" -gt 0 ]; then
             EXEC_MODE="GPU (Partial)"
@@ -615,7 +620,7 @@ if curl --silent --fail "$OLLAMA_API_BASE/api/tags" > /dev/null; then
             EXEC_MODE="CPU"
         fi
     else
-        EXEC_MODE="No Model Loaded"
+        EXEC_MODE="IDLE (No Model)"
     fi
 
     print_table_row "Ollama Execution Mode" "$EXEC_MODE"
