@@ -600,14 +600,22 @@ if curl --silent --fail "$OLLAMA_API_BASE/api/tags" > /dev/null; then
     fi
 
     # ---- Check Ollama Execution Mode ----
-    LOG_PATH="/workspace/langchain-service/ollama.log"
-    LAST_OFFLOAD=$(grep -E "offloading .* to GPU" "$LOG_PATH" | tail -n 1)
-    EXEC_MODE_STATUS=1
+    MODEL_DATA=$(curl -s http://localhost:11434/api/ps | grep -o '{"models":\[.*\]}' | sed 's/{"models":\[//;s/\].*//')
 
-    if echo "$LAST_OFFLOAD" | grep -q "offloading .* to GPU"; then
-        EXEC_MODE="GPU"
+    if [ -n "$MODEL_DATA" ]; then
+        # Extract total size and vram size using simple grep/sed (if jq is not available)
+        TOTAL_SIZE=$(echo "$MODEL_DATA" | grep -o '"size":[0-9]*' | cut -d: -f2)
+        VRAM_SIZE=$(echo "$MODEL_DATA" | grep -o '"size_vram":[0-9]*' | cut -d: -f2)
+
+        if [ "$VRAM_SIZE" -eq "$TOTAL_SIZE" ] && [ "$TOTAL_SIZE" -gt 0 ]; then
+            EXEC_MODE="GPU (Full)"
+        elif [ "$VRAM_SIZE" -gt 0 ]; then
+            EXEC_MODE="GPU (Partial)"
+        else
+            EXEC_MODE="CPU"
+        fi
     else
-        EXEC_MODE="CPU"
+        EXEC_MODE="No Model Loaded"
     fi
 
     print_table_row "Ollama Execution Mode" "$EXEC_MODE"

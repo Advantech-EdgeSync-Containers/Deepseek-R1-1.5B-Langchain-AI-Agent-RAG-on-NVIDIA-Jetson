@@ -7,6 +7,16 @@
 
 ## Overview
 Deepseek-R1 1.5B Langchain AI Agent (RAG) on NVIDIA Jetson™ Image delivers a modular, high-performance AI chat solution tailored for Jetson™ edge devices that extracts relevant information from a PDF document. It combines Ollama with the DeepSeek R1 1.5B model for LLM inference, a FastAPI-based Langchain middleware for orchestration and tool integration, and OpenWebUI for an intuitive user interface. The container supports Retrieval-Augmented Generation (RAG), tool-augmented reasoning, conversational memory, and custom LLM workflows, making it ideal for building intelligent, context-aware agents. It is fully optimized for hardware acceleration on Jetson™ platforms. This container particularly shows how RAG use case could be built using DeepSeek & Langchain.
+## Host System Requirements
+| Component | Version/Requirement |
+|-----------|---------|
+| **JetPack** | 6.x |
+| **CUDA** | 12.6.68 |
+| **cuDNN** | 9.3.0.75 |
+| **TensorRT** | 10.3.0.30 |
+| **OpenCV** | 4.8.0 |
+* CUDA , CuDNN , TensorRT , OpenCV versions Depends on JetPack version 6.x
+* Please refer to the [NVIDIA JetPack Documentation](https://developer.nvidia.com/embedded/jetpack) for more details on compatible versions.
 
 ## Key Features
 
@@ -138,16 +148,6 @@ This image uses DeepSeek R1-1.5B for inferencing; here are the details about the
 | Number of Parameters | ~1.78 B |
 | Model size  | ~1.1 GB |
 | Default context size (unless changed using parameters) | 2048 |
-
-## Host System Requirements
-
-| Component | Version/Requirement |
-|-----------|---------|
-| **JetPack** | 6.x |
-| **CUDA** | 12.6.68 |
-| **cuDNN** | 9.3.0.75 |
-| **TensorRT** | 10.3.0.30 |
-| **OpenCV** | 4.8.0 |
 
 * CUDA , CuDNN , TensorRT , OpenCV versions Depends on JetPack version 6.x
 * Please refer to the [NVIDIA JetPack Documentation](https://developer.nvidia.com/embedded/jetpack) for more details on compatible versions.
@@ -417,7 +417,7 @@ Ollama APIs are accessible on the default endpoint (unless modified). If needed,
 
 Inference Request:
 ```
-curl http://localhost_or_Jetson_IP:11434/api/generate -d '{
+curl http://localhost:11434/api/generate -d '{
   "model": "deepseek-r1:1.5b",
   "prompt": "Why is the sky blue?",
   "stream": false
