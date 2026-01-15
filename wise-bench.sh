@@ -492,7 +492,6 @@ if [ -f "/usr/local/cuda/bin/nvcc" ] || [ -n "$(find /usr -name nvcc 2>/dev/null
     print_table_row "CUDA Toolkit" "✓ Available"
     CUDA_STATUS=1
 else
-else
     print_table_row "CUDA Toolkit" "⚠ Not detected"
     CUDA_STATUS=0
 fi

@@ -74,6 +74,7 @@ services:
             - driver: nvidia
               capabilities: [gpu, compute, utility, video, graphics]
               count: all
+    working_dir: /workspace
 
   openweb-ui-service:
     image: ghcr.io/open-webui/open-webui:0.6.5
