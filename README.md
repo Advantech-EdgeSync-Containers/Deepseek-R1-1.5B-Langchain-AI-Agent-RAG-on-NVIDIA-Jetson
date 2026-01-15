@@ -73,7 +73,7 @@ Deepseek-R1-1.5B-Langchain-AI-Agent-RAG-on-NVIDIA-Jetson/
 │       └── select-model.png                  # Model selection screen/CLI example
 └── langchain-rag-service/                    # Core LangChain RAG API service
     ├── pdfs/                                 # Folder to store pdf documents
-    │   └── EdgeSync.pdf                      # Sample PDF i.e. EdgeSync.pdf, contains basic info about EdgeSync    
+    │   └── WEDA.pdf                      # Sample PDF i.e. WEDA.pdf, contains basic info about WEDA    
     ├── app.py                                # Main LangChain-FastAPI app
     ├── llm_loader.py                         # LLM loader (Ollama, DeepSeek, etc.)
     ├── rag_utils.py                          # RAG helper functions like load pdf, split, etc.
@@ -149,9 +149,6 @@ This image uses DeepSeek R1-1.5B for inferencing; here are the details about the
 | Model size  | ~1.1 GB |
 | Default context size (unless changed using parameters) | 2048 |
 
-* CUDA , CuDNN , TensorRT , OpenCV versions Depends on JetPack version 6.x
-* Please refer to the [NVIDIA JetPack Documentation](https://developer.nvidia.com/embedded/jetpack) for more details on compatible versions.
-
 ## Hardware Specifications
 
 | Component | Specification |
@@ -174,11 +171,6 @@ The following software components are available in the base image:
 | PyTorch | 2.0.0+nv23.02 | Deep learning framework |
 | TensorFlow | 2.12.0 | Machine learning framework |
 | ONNX Runtime | 1.16.3 | Cross-platform inference engine |
-| VPI | 3.2.4 | Vision Programming Interface |
-| Vulkan | 1.3.204 | Graphics and compute API |
-| OpenCV | 4.8.0 | Computer vision library with CUDA® |
-| GStreamer | 1.16.2 | Multimedia framework |
-
 
 The following software components/packages are provided further inside the container image:
 
@@ -273,7 +265,7 @@ Allow some time for the OpenWebUI and Deepseek-R1 1.5B Langchain AI Agent (RAG) 
 
 ![RAG Start Log](data/images/rag-start-log.png)
 
-Refer to the sample prompts table below to invoke RAG-based responses for the `EdgeSync.pdf` document.
+Refer to the sample prompts table below to invoke RAG-based responses for the `WEDA.pdf` document.
 
 ### AI Accelerator and Software Stack Verification (Optional)
 ```
@@ -291,17 +283,17 @@ chmod +x wise-bench.sh
 Wise-bench logs are saved in `wise-bench.log` file under `/workspace`
 
 
-### Sample Prompts for PDF-based RAG Queries on EdgeSync Technical Document
+### Sample Prompts for PDF-based RAG Queries on WEDA Technical Document
 
-These example prompts demonstrate how users can query technical documents related to EdgeSync (i.e., `EdgeSync.pdf`). The RAG container will retrieve relevant context and generate a meaningful response from the source document. Users can extend this RAG example container for their own documents and modify their prompts accordingly.
+These example prompts demonstrate how users can query technical documents related to WEDA (i.e., `WEDA.pdf`). The RAG container will retrieve relevant context and generate a meaningful response from the source document. Users can extend this RAG example container for their own documents and modify their prompts accordingly.
 
 | S.No | Prompt |
 |------|--------|
-| 1 | Please summarize in detail about the EdgeSync API. |
-| 2 | What are the pillars of EdgeSync? |
-| 3 | Please describe EdgeSync containers. |
-| 4 | What can developers do with EdgeSync APIs? |
-| 5 | What developers can do with EdgeSync containers? |
+| 1 | Please summarize in detail about the WEDA API. |
+| 2 | What are the pillars of WEDA? |
+| 3 | Please describe WEDA containers. |
+| 4 | What can developers do with WEDA APIs? |
+| 5 | What developers can do with WEDA containers? |
 
 
 ### Check Installation Status
